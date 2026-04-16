@@ -29,7 +29,7 @@ local function CreateHandles()
 	clearHandles()
 	local size=selectedPart.Size
 	local pos=selectedPart.Position
-	local cf=selectedPart.CFrame -- used for local space offset directions
+	local cf=selectedPart.CFrame
 	local function make(dir,color,ax)
 		local p=Instance.new("Part")
 		p.Anchored=true
@@ -55,7 +55,7 @@ local function CreateHandles()
 	end
 	make(1,Color3.fromRGB(255,0,0),"X")
 	make(-1,Color3.fromRGB(255,0,0),"X")
-	make(1,Color3.fromRGB(0,255,0),"Y") -- green = Y axis
+	make(1,Color3.fromRGB(0,255,0),"Y")
 	make(-1,Color3.fromRGB(0,255,0),"Y")
 	make(1,Color3.fromRGB(0,0,255),"Z")
 	make(-1,Color3.fromRGB(0,0,255),"Z")
@@ -65,7 +65,7 @@ local function spawnPart()
 	local p=Instance.new("Part")
 	p.Anchored=true
 	p.Size=Vector3.new(4,4,4)
-	p.Position=Vector3.new(hit.X,hit.Y+2,hit.Z) -- offset Y so it sits on surface
+	p.Position=Vector3.new(hit.X,hit.Y+2,hit.Z)
 	partCount=partCount+1
 	p.Name="Part_"..partCount
 	p.Parent=workspace
@@ -82,7 +82,7 @@ Mouse.Button1Down:Connect(function()
 	if Mouse.Target.Name=="Handles" then
 		dragging=true
 		axis=Mouse.Target:GetAttribute("Axis")
-		startMousePos=Mouse.Hit.Position -- record drag origin for delta math
+		startMousePos=Mouse.Hit.Position
 		if selectedPart then
 			startSize=selectedPart.Size
 			startCFrame=selectedPart.CFrame
@@ -127,7 +127,7 @@ RS.RenderStepped:Connect(function()
 			elseif axis=="Z" then selectedPart.Position=Vector3.new(pos.X,pos.Y,hit.Z) end
 		else
 			local dir=(axis=="X" and cf.RightVector) or (axis=="Y" and cf.UpVector) or cf.LookVector
-			local delta=(hit-pos):Dot(dir) -- project onto local axis for constrained move
+			local delta=(hit-pos):Dot(dir)
 			selectedPart.Position=pos+dir*delta
 		end
 	end
