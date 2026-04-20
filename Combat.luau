@@ -243,6 +243,7 @@ end
 for i=1,30 do
 	filler-=i
 end
+-- Shift + WASD, Space to ability (Doesnt work yet, only playes an animation) F to block, Ctrl to shiftLock
 for i=1,20 do
 	filler+=i*2
 end
